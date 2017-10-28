@@ -49,7 +49,12 @@ namespace RR.Logger_V1
 
             }
 
-            return true;
+            if (_config.LogLevel.TryGetValue("Default", out var lll))
+            {
+                return logLevel >= lll;
+            }
+
+            return false;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
