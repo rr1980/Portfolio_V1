@@ -35,6 +35,8 @@ namespace Main.Web
             var options = sp.GetService<IOptions<AppSettings>>();
 
             services.AddLogger(options.Value.LoggerConfiguration);
+            //loggerFactory.AddFile("Logs/myapp-{Date}.txt");
+
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
 
@@ -53,7 +55,8 @@ namespace Main.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Error");
             }
 
             app.UseStatusCodePages("text/plain", "<h1>Status code page, status code: {0}</h1>");

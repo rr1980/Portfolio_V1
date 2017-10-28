@@ -117,13 +117,16 @@ namespace RR.Logger_V1
 
         private LoggerStackTrace _getLoggerStackTrace(StackTrace str, Exception ex = null)
         {
+            if(string.IsNullOrEmpty(Name))
+            {
+                throw new NullReferenceException("Name darf nicht NULL sein!");
+            }
             if (ex == null || ex.TargetSite == null)
             {
-                var frame = str.GetFrames().FirstOrDefault(f => f.GetMethod().ReflectedType.Namespace + "." + f.GetMethod().ReflectedType.Name == Name);
-                //var frame = str.GetFrame(frameIndex);
+                var frame = str.GetFrames().FirstOrDefault(f => f.GetMethod()?.ReflectedType?.Namespace + "." + f.GetMethod()?.ReflectedType?.Name == Name);
                 return new LoggerStackTrace()
                 {
-                    MethodName = frame.GetMethod().Name,
+                    MethodName = frame?.GetMethod()?.Name,
                     NameSpace = Name
                 };
             }
