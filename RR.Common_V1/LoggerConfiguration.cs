@@ -2,9 +2,9 @@
 using RR.Common_V1;
 using System.Collections.Concurrent;
 
-namespace RR.Logger_V1
+namespace RR.Common_V1
 {
-    public class LoggerConfiguration_V1 : ILoggerConfiguration
+    public class LoggerConfiguration 
     {
         public ConcurrentDictionary<string, LogLevel> LogLevel { get; set; }
 

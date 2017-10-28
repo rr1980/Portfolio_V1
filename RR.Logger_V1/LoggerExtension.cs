@@ -4,13 +4,13 @@ using RR.Common_V1;
 
 namespace RR.Logger_V1
 {
-    public static class LoggerExtension_V1
+    public static class LoggerExtension
     {
-        public static IServiceCollection AddLogger(this IServiceCollection services, ILoggerConfiguration loggerConfiguration)
+        public static IServiceCollection AddLogger(this IServiceCollection services, LoggerConfiguration loggerConfiguration)
         {
             services.AddLogging(loggingBuilder =>
             {
-                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider_V1(loggerConfiguration));
+                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration));
                 //loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(new LoggerConfiguration()
                 //{
                 //    LogLevel = new ConcurrentDictionary<string, LogLevel>(new Dictionary<string, LogLevel>()

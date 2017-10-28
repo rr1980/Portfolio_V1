@@ -12,12 +12,12 @@ namespace RR.Logger_V1
         public string NameSpace { get; internal set; }
 
     }
-    public class Logger_V1 : ILogger
+    public class Logger : ILogger
     {
         private string name;
-        private ILoggerConfiguration _config = new LoggerConfiguration_V1();
+        private LoggerConfiguration _config = new LoggerConfiguration();
 
-        public Logger_V1(string name, ILoggerConfiguration config)
+        public Logger(string name, LoggerConfiguration config)
         {
             this.name = name;
             _config = config;

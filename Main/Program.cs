@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RR.Common_V1;
 using RR.Logger_V1;
 using System;
 using System.IO;
@@ -41,6 +42,9 @@ namespace Main
                                     .Build();
 
             services.AddOptions();
+
+            var ccc = configuration.GetSection("AppSettings");
+
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 
             var options = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
