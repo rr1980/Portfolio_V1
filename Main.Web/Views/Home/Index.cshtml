@@ -7,28 +7,11 @@
 
 <div>
     <form asp-action="Login" asp-controller="Home" class="form-horizontal">
-        @*<div asp-validation-summary="All" class="text-danger"></div>*@
-        <div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Name" type="text" value="@Model.Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Vorname" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Vorname" type="text" value="@Model.Vorname" class="form-control" />
-                <span asp-validation-for="Vorname" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Password" type="password" value="@Model.Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-        </div>
+
+        <vm-input vm-target="Name"></vm-input>
+        <vm-input vm-target="Vorname"></vm-input>
+        <vm-input vm-type="Password" vm-target="Password"></vm-input>
+
         <div class="form-group">
             <button type="submit" class="btn btn-xs btn-success">Login</button>
         </div>
@@ -36,6 +19,10 @@
             <button type="button" onclick="postServer()" class="btn btn-xs btn-success">Post(Ajax)</button>
         </div>
     </form>
+
+
+    @*<vm vm-target="Vorname"></vm>*@
+
 </div>
 
 <script>
@@ -49,16 +36,12 @@
             cache: false,
 
             success: function (response) {
-                console.debug("success");
                 console.debug(response);
             },
             error: function (error, textStatus, errorThrown) {
-                console.debug("error");
                 console.debug(error);
                 console.debug(errorThrown);
-
-
-                //$('#errIframe').html(error.responseText);
+                                
                 $('#errIframe').contents().find('body').html(error.responseText)
                 $('.modal').modal('show');
             }

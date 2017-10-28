@@ -31,11 +31,11 @@ namespace Main.Web.Controllers
 
         public IActionResult Index()
         {
-            var data0 = _attributeService.GetAllByType(typeof(UserVievModel));
-            var data1 = _attributeService.GetAllByType<UserVievModel>();
-            var data2 = _attributeService.GetAllByObj<UserVievModel>(new UserVievModel());
-            var data3 = _attributeService.GetByProperty<UserVievModel>(o => o.Name);
-            var data4 = _attributeService.GetByName<UserVievModel>("Vorname");
+            //var data0 = _attributeService.GetAllByType(typeof(UserVievModel));
+            //var data1 = _attributeService.GetAllByType<UserVievModel>();
+            //var data2 = _attributeService.GetAllByObj<UserVievModel>(new UserVievModel());
+            //var data3 = _attributeService.GetByProperty<UserVievModel>(o => o.Name);
+            //var data4 = _attributeService.GetByName<UserVievModel>("Vorname");
 
             _logger.LogDebug("Call Index");
 
