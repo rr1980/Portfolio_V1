@@ -60,14 +60,10 @@ namespace RR.Logger_V1
             }
 
             LoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), 4, exception);
-
-            Debug.WriteLine($"{DateTime.Now} {logLevel}: [{eventId.Id}] {name}: {str.MethodName} {Environment.NewLine + " \t "} "
+            
+            Debug.WriteLine($"{DateTime.Now} {logLevel}: [{eventId.Id}] {str.NameSpace}: {str.MethodName} {Environment.NewLine + " \t "} "
                 + formatter(state, exception) + Environment.NewLine
                 + (exception != null ? _getException(exception) + Environment.NewLine : ""));
-
-            //Debug.WriteLine(DateTime.Now + " - " + logLevel.ToString() + " - " + name + ": " + str.MethodName + Environment.NewLine + " \t "
-            //    + state + Environment.NewLine
-            //    + (exception != null ? _getException(exception) + Environment.NewLine : ""));
         }
 
         private string _getException(Exception ex)
@@ -111,11 +107,12 @@ namespace RR.Logger_V1
         {
             if (ex == null)
             {
+                var frames = str.GetFrames();
                 var frame = str.GetFrame(frameIndex);
                 return new LoggerStackTrace()
                 {
                     MethodName = frame.GetMethod().Name,
-                    NameSpace = frame.GetMethod().DeclaringType.FullName
+                    NameSpace = name
                 };
             }
             else
