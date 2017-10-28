@@ -36,20 +36,22 @@ namespace RR.AttributeService_V1
                  VmTarget.ModelExplorer,
                  VmTarget.Name,
                  labelText: VmTarget.Name,
-                 htmlAttributes: new Dictionary<string, object>(new[] {
-                     new KeyValuePair<string, object>("class", "col-md-2 control-label")
-                 }));
-            
+                 htmlAttributes: new Dictionary<string, object>
+                 {
+                     { "class", "col-md-2 control-label" }
+                 });
+
 
             var input = Generator.GenerateTextBox(ViewContext,
                  VmTarget.ModelExplorer,
                  VmTarget.Name,
                  value: VmTarget.Model as string,
                  format: null,
-                 htmlAttributes: new Dictionary<string, object>(new[] {
-                     new KeyValuePair<string, object>("type", VmType),
-                     new KeyValuePair<string, object>("class", "form-control")
-                 }));
+                 htmlAttributes: new Dictionary<string, object>
+                 {
+                     { "type", VmType },
+                     { "class", "form-control" }
+                 });
 
             var span = Generator.GenerateValidationMessage(
                  ViewContext,
@@ -57,8 +59,11 @@ namespace RR.AttributeService_V1
                  VmTarget.Name,
                  message: null,
                  tag: null,
-                 htmlAttributes: null);
-            
+                 htmlAttributes: new Dictionary<string, object>
+                 {
+                     { "class", "text-danger" }
+                 });
+
             var div = new TagBuilder("div");
             div.Attributes.Add("class", "col-md-10");
             div.InnerHtml.AppendHtml(input);

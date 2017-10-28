@@ -5,24 +5,25 @@
 @using Main.Web.Models;
 @model UserVievModel;
 
-<div>
-    <form asp-action="Login" asp-controller="Home" class="form-horizontal">
+<div class="row row-buffer-top">
+    <div class="col-md-6 col-md-offset-3">
+        <form asp-action="Login" asp-controller="Home" class="form-horizontal">
+            <div class="row">
+                <vm-input vm-target="Name"></vm-input>
+            </div>
+            <div class="row">
+                <vm-input vm-target="Vorname"></vm-input>
+            </div>
+            <div class="row">
+                <vm-input vm-type="Password" vm-target="Password"></vm-input>
+            </div>
 
-        <vm-input vm-target="Name"></vm-input>
-        <vm-input vm-target="Vorname"></vm-input>
-        <vm-input vm-type="Password" vm-target="Password"></vm-input>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-xs btn-success">Login</button>
-        </div>
-        <div class="form-group">
-            <button type="button" onclick="postServer()" class="btn btn-xs btn-success">Post(Ajax)</button>
-        </div>
-    </form>
-
-
-    @*<vm vm-target="Vorname"></vm>*@
-
+            <div class="row text-right">
+                <button type="submit" class="btn btn-sm btn-success">Login</button>
+                <button type="button" onclick="postServer()" class="btn btn-sm btn-success">Post(Ajax)</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
@@ -41,7 +42,7 @@
             error: function (error, textStatus, errorThrown) {
                 console.debug(error);
                 console.debug(errorThrown);
-                                
+
                 $('#errIframe').contents().find('body').html(error.responseText)
                 $('.modal').modal('show');
             }
