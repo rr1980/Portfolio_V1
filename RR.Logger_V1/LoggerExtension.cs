@@ -10,7 +10,7 @@ namespace RR.Logger_V1
         {
             services.AddLogging(loggingBuilder =>
             {
-                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration));
+                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration)).SetMinimumLevel(LogLevel.Trace);
                 //loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(new LoggerConfiguration()
                 //{
                 //    LogLevel = new ConcurrentDictionary<string, LogLevel>(new Dictionary<string, LogLevel>()
