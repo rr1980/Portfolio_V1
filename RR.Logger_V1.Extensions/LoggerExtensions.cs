@@ -41,16 +41,22 @@ namespace RR.Logger_V1.Extensions
     {
         public static void Log_Controller_Call(this ILogger logger, string message, params object[] objs)
         {
-            string objs_string = LoggerExtensionsHelper.GetJsonObjString(objs);
-            logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " called..." + Environment.NewLine + objs_string);
+            if (logger.IsEnabled(LogLevel.Trace))
+            {
+                string objs_string = LoggerExtensionsHelper.GetJsonObjString(objs);
+                logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " called..." + Environment.NewLine + objs_string);
+            }
         }
 
         public static void Log_Object(this ILogger logger, string message, params object[] objs)
         {
             try
             {
-                string objs_string = LoggerExtensionsHelper.GetJsonObjString(objs);
-                logger.LogTrace(message + Environment.NewLine + objs_string);
+                if (logger.IsEnabled(LogLevel.Trace))
+                {
+                    string objs_string = LoggerExtensionsHelper.GetJsonObjString(objs);
+                    logger.LogTrace(message + Environment.NewLine + objs_string);
+                }
             }
             catch (Exception ex)
             {
@@ -68,12 +74,18 @@ namespace RR.Logger_V1.Extensions
 
         public static void Log_Controller_Start(this ILogger logger)
         {
-            logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " init started...");
+            if (logger.IsEnabled(LogLevel.Trace))
+            {
+                logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " init started...");
+            }
         }
 
         public static void Log_Controller_End(this ILogger logger)
         {
-            logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " init ends...");
+            if (logger.IsEnabled(LogLevel.Trace))
+            {
+                logger.LogTrace(logger.GetType().GenericTypeArguments.FirstOrDefault().Name + " init ends...");
+            }
         }
     }
 }
