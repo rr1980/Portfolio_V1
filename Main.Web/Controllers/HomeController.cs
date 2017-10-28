@@ -18,7 +18,7 @@ namespace Main.Web.Controllers
         {
             //_attributeService = attributeService;
             _logger = loggerFactory.CreateLogger<HomeController>();
-            _logger.LogDebug("HomeController init");
+            _logger.LogTrace("HomeController init");
         }
 
         public IActionResult Index()
