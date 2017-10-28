@@ -11,18 +11,6 @@ namespace RR.Logger_V1
             services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration)).SetMinimumLevel(LogLevel.Trace);
-                //loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(new LoggerConfiguration()
-                //{
-                //    LogLevel = new ConcurrentDictionary<string, LogLevel>(new Dictionary<string, LogLevel>()
-                //         {
-                //             { "Microsoft", LogLevel.Warning },
-                //             { "Microsoft.AspNetCore", LogLevel.Warning },
-                //             { "System", LogLevel.Warning },
-                //             { "Default", LogLevel.None },
-                //             { "AttributeTest", LogLevel.Trace }
-
-                //         })
-                //}));
             });
 
             return services;

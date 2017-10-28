@@ -1,43 +1,34 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RR.Common_V1;
 using RR.Logger_V1;
-using System;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace Main
+namespace RR.Logger_V1_Tests
 {
-    public class Program
+    [TestClass]
+    public class Logger_Tests
     {
-        public static IConfigurationRoot Configuration { get; set; }
+        private readonly ILogger<Logger_Tests> _logger;
 
-        static void Main(string[] args)
+        public Logger_Tests()
         {
             var services = new ServiceCollection();
             ConfigureServices(services);
             var serviceProvider = services.BuildServiceProvider();
 
-            var app = serviceProvider.GetService<App>();
             var lf = serviceProvider.GetService<ILoggerFactory>();
-            var logger = lf.CreateLogger<Program>();
-
-            logger.LogDebug("Try start Task");
-            var task = Task.Run((Action)app.Run);
-            logger.LogInformation("Task started");
-            Console.WriteLine("End");
-
-            task.Wait();
-
+            _logger = lf.CreateLogger<Logger_Tests>();
         }
 
         private static void ConfigureServices(IServiceCollection services)
         {
             var configuration = new ConfigurationBuilder()
-                                    .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))
+                                    .SetBasePath(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Main.Program)).Location))
                                     .AddJsonFile("appsettings.json", false)
                                     .Build();
 
@@ -50,9 +41,12 @@ namespace Main
             var options = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
 
             services.AddLogger(options.Value.LoggerConfiguration);
-            services.AddTransient<IExampleService, ExampleService>();
+        }
 
-            services.AddTransient<App>();
+        [TestMethod]
+        public void LogInformation()
+        {
+            _logger.LogInformation("LogInformation Test");
         }
     }
 }
