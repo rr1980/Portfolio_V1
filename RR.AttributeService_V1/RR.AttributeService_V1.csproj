@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
+    <ProjectReference Include="..\RR.Logger_V1.Extensions\RR.Logger_V1.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

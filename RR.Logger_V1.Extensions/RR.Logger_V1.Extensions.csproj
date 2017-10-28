@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
+    <ProjectReference Include="..\RR.Logger_V1\RR.Logger_V1.csproj" />
+  </ItemGroup>
+
+</Project>

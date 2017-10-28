@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RR.Common_V1;
+using RR.Logger_V1.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +23,15 @@ namespace RR.AttributeService_V1
         {
             try
             {
-                _logger.LogDebug("Execute GetAllByType(Type type)");
+                _logger.Log_Object("Execute GetAllByType(Type type)", type);
                 if (type == null)
                 {
                     throw new ArgumentNullException("type");
                 }
-                _logger.LogTrace("Call AttributeHelper.GetProperties");
+                _logger.Log_Object("Call AttributeHelper.GetProperties", type);
                 var _properties = AttributeHelper.GetProperties(_logger, type);
 
-                _logger.LogTrace("Call AttributeHelper.GetAttributes", _properties);
+                _logger.Log_Object("Call AttributeHelper.GetAttributes", _properties);
                 var result = AttributeHelper.GetAttributes(_logger, _properties);
 
                 return result;
@@ -48,10 +49,10 @@ namespace RR.AttributeService_V1
             {
                 _logger.LogDebug("Execute GetAllByType<TSource>()");
 
-                _logger.LogTrace("Call AttributeHelper.GetProperties");
+                _logger.Log_Object("Call AttributeHelper.GetProperties", typeof(TSource));
                 var _properties = AttributeHelper.GetProperties(_logger, typeof(TSource));
 
-                _logger.LogTrace("Call AttributeHelper.GetAttributes");
+                _logger.Log_Object("Call AttributeHelper.GetAttributes", _properties);
                 var result = AttributeHelper.GetAttributes(_logger, _properties);
 
                 return result;
@@ -67,16 +68,16 @@ namespace RR.AttributeService_V1
         {
             try
             {
-                _logger.LogDebug("Execute GetAllByObj<TSource>(TSource obj)");
+                _logger.Log_Object("Execute GetAllByObj<TSource>(TSource obj)", obj);
                 if (obj == null)
                 {
                     throw new ArgumentNullException("obj");
                 }
 
-                _logger.LogTrace("Call AttributeHelper.GetProperties");
+                _logger.Log_Object("Call AttributeHelper.GetProperties", obj.GetType());
                 var _properties = AttributeHelper.GetProperties(_logger, obj.GetType());
 
-                _logger.LogTrace("Call AttributeHelper.GetAttributes");
+                _logger.Log_Object("Call AttributeHelper.GetAttributes", _properties);
                 var result = AttributeHelper.GetAttributes(_logger, _properties);
 
                 return result;
@@ -92,14 +93,14 @@ namespace RR.AttributeService_V1
         {
             try
             {
-                _logger.LogDebug("Execute GetByName<TSource>(string propertyName)");
+                _logger.Log_Object("Execute GetByName<TSource>(string propertyName)", propertyName);
 
                 if (string.IsNullOrEmpty(propertyName))
                 {
                     throw new ArgumentNullException("propertyName");
                 }
 
-                _logger.LogTrace("Call AttributeHelper.GetProperties");
+                _logger.Log_Object("Call AttributeHelper.GetProperties", typeof(TSource));
                 var _property = AttributeHelper.GetProperties(_logger, typeof(TSource)).FirstOrDefault(p => p.Name == propertyName);
 
                 if (_property == null)
@@ -107,7 +108,7 @@ namespace RR.AttributeService_V1
                     throw new NullReferenceException("No Property '" + propertyName + "' found in " + typeof(TSource).Name);
                 }
 
-                _logger.LogTrace("Call AttributeHelper.GetAttributes");
+                _logger.Log_Object("Call AttributeHelper.GetAttributes", _property);
                 var result = AttributeHelper.GetAttribute(_logger, _property);
 
                 return result;
@@ -123,7 +124,7 @@ namespace RR.AttributeService_V1
         {
             try
             {
-                _logger.LogDebug("Execute GetByProperty<TSource>(Expression<Func<TSource, object>> property)");
+                _logger.Log_Object("Execute GetByProperty<TSource>(Expression<Func<TSource, object>> property)", property);
 
                 if (property == null)
                 {
@@ -137,7 +138,7 @@ namespace RR.AttributeService_V1
                     throw new NullReferenceException("No Property '" + property + "' found in " + typeof(TSource).Name);
                 }
 
-                _logger.LogTrace("Call AttributeHelper.GetAttributes results");
+                _logger.Log_Object("Call AttributeHelper.GetAttributes results", _property);
                 var result = AttributeHelper.GetAttribute(_logger, _property);
 
                 return result;

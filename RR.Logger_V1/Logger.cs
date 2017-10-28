@@ -14,12 +14,14 @@ namespace RR.Logger_V1
     }
     public class Logger : ILogger
     {
-        private string name;
+        private readonly ILogger _selfLogger;
+        public string Name { get; private set; }
         private LoggerConfiguration _config = new LoggerConfiguration();
 
-        public Logger(string name, LoggerConfiguration config)
+        public Logger(string name, LoggerConfiguration config, ILogger selfLogger = null)
         {
-            this.name = name;
+            _selfLogger = selfLogger;
+            Name = name;
             _config = config;
         }
 
@@ -30,13 +32,13 @@ namespace RR.Logger_V1
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            if (_config.LogLevel.TryGetValue(name, out var l))
+            if (_config.LogLevel.TryGetValue(Name, out var l))
             {
                 return logLevel >= l;
             }
             else
             {
-                var strA = name.Split(".");
+                var strA = Name.Split(".");
                 for (int i = strA.Length; i > 0; i--)
                 {
 
@@ -64,8 +66,8 @@ namespace RR.Logger_V1
                 return;
             }
 
-            LoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), 4, exception);
-            
+            LoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), exception);
+
             Debug.WriteLine($"{DateTime.Now} {logLevel}: [{eventId.Id}] {str.NameSpace}: {str.MethodName} {Environment.NewLine + " \t "} "
                 + formatter(state, exception) + Environment.NewLine
                 + (exception != null ? _getException(exception) + Environment.NewLine : ""));
@@ -76,7 +78,7 @@ namespace RR.Logger_V1
             var e = ex;
             var message = "\t\t" + e.Message + Environment.NewLine;
             message += _getexceptionStackTrace("\t\t\t", e.StackTrace);
-            message += Environment.NewLine;
+            //message += Environment.NewLine;
 
             int tabCount = 3;
             while (e.InnerException != null)
@@ -98,6 +100,11 @@ namespace RR.Logger_V1
 
         private string _getexceptionStackTrace(string tab, string str)
         {
+            if (string.IsNullOrEmpty(str))
+            {
+                return "";
+            }
+
             var msg = "";
             var rows = str.Split(Environment.NewLine);
             foreach (var item in rows)
@@ -105,27 +112,27 @@ namespace RR.Logger_V1
                 msg += tab + "\t" + item + Environment.NewLine;
             }
 
-            return msg;
+            return msg + Environment.NewLine;
         }
 
-        private LoggerStackTrace _getLoggerStackTrace(StackTrace str, int frameIndex, Exception ex = null)
+        private LoggerStackTrace _getLoggerStackTrace(StackTrace str, Exception ex = null)
         {
-            if (ex == null)
+            if (ex == null || ex.TargetSite == null)
             {
-                var frames = str.GetFrames();
-                var frame = str.GetFrame(frameIndex);
+                var frame = str.GetFrames().FirstOrDefault(f => f.GetMethod().ReflectedType.Namespace + "." + f.GetMethod().ReflectedType.Name == Name);
+                //var frame = str.GetFrame(frameIndex);
                 return new LoggerStackTrace()
                 {
                     MethodName = frame.GetMethod().Name,
-                    NameSpace = name
+                    NameSpace = Name
                 };
             }
             else
             {
                 return new LoggerStackTrace()
                 {
-                    MethodName = ex.TargetSite.Name,
-                    NameSpace = ex.TargetSite.DeclaringType.FullName
+                    MethodName = ex.TargetSite?.Name,
+                    NameSpace = ex.TargetSite?.DeclaringType.FullName
                 };
             }
         }

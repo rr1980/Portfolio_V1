@@ -8,9 +8,12 @@ using Main.Web.Models;
 using Microsoft.Extensions.Logging;
 using RR.Common_V1;
 using RR.AttributeService_V1;
+using RR.Logger_V1.Extensions;
 
 namespace Main.Web.Controllers
 {
+
+
     public class HomeController : Controller
     {
         private readonly IAttributeService<ViewModelAttribute> _attributeService;
@@ -18,18 +21,21 @@ namespace Main.Web.Controllers
 
         public HomeController(IAttributeService<ViewModelAttribute> attributeService, ILoggerFactory loggerFactory)
         {
-            _attributeService = attributeService;
             _logger = loggerFactory.CreateLogger<HomeController>();
-            _logger.LogTrace("HomeController init");
+            _logger.Log_Controller_Start();
+
+            _attributeService = attributeService;
+            
+            _logger.Log_Controller_End();
         }
 
         public IActionResult Index()
         {
             var data0 = _attributeService.GetAllByType(typeof(UserVievModel));
-            //var data1 = _attributeService.GetAllByType<UserVievModel>();
-            //var data2 = _attributeService.GetAllByObj<UserVievModel>(new UserVievModel());
-            //var data3 = _attributeService.GetByProperty<UserVievModel>(o => o.Name);
-            //var data4 = _attributeService.GetByName<UserVievModel>("Vorname");
+            var data1 = _attributeService.GetAllByType<UserVievModel>();
+            var data2 = _attributeService.GetAllByObj<UserVievModel>(new UserVievModel());
+            var data3 = _attributeService.GetByProperty<UserVievModel>(o => o.Name);
+            var data4 = _attributeService.GetByName<UserVievModel>("Vorname");
 
             _logger.LogDebug("Call Index");
 
@@ -38,30 +44,31 @@ namespace Main.Web.Controllers
 
         public IActionResult Login(UserVievModel userVievModel)
         {
-            _logger.LogDebug("Post Login");
+            List<TestClass> ttt = new List<TestClass>() { new TestClass() };
+            _logger.Log_Controller_Call("Post Login", userVievModel, ttt);
 
-            try
-            {
-                throw new Exception("Post war falsch!");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("HomeController hat Fehler!", ex);
-            }
+            //try
+            //{
+            //    throw new Exception("Post war falsch!");
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("HomeController hat Fehler!", ex);
+            //}
 
             return View("Index", userVievModel);
         }
 
         public PostResult Test(string name, string location)
         {
-            try
-            {
-                throw new Exception("Post war falsch!");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("HomeController hat Fehler!", ex);
-            }
+            //try
+            //{
+            //    throw new Exception("Post war falsch!");
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("HomeController hat Fehler!", ex);
+            //}
 
             return new PostResult();
         }

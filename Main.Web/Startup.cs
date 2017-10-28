@@ -12,6 +12,7 @@ using RR.Logger_V1;
 using RR.AttributeService_V1;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using RR.ExceptionHandler;
+using Microsoft.Extensions.Logging;
 
 namespace Main.Web
 {
@@ -54,6 +55,8 @@ namespace Main.Web
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseStatusCodePages("text/plain", "<h1>Status code page, status code: {0}</h1>");
 
             app.UseStaticFiles();
 
