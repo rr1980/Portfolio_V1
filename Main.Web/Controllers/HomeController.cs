@@ -40,14 +40,14 @@ namespace Main.Web.Controllers
         {
             _logger.LogDebug("Post Login");
 
-            //try
-            //{
-            //    throw new Exception("Post war falsch!");
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw new Exception("HomeController hat Fehler!", ex);
-            //}
+            try
+            {
+                throw new Exception("Post war falsch!");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("HomeController hat Fehler!", ex);
+            }
 
             return View("Index", userVievModel);
         }
