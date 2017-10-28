@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using RR.Logger_V1;
 using RR.AttributeService_V1;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using RR.ExceptionHandler;
 
 namespace Main.Web
 {
@@ -27,13 +28,17 @@ namespace Main.Web
         {
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            var options = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
+
+            var sp = services.BuildServiceProvider();
+
+            var options = sp.GetService<IOptions<AppSettings>>();
 
             services.AddLogger(options.Value.LoggerConfiguration);
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
 
-            services.AddMvc();
+            var mvcBuilder = services.AddMvc();
+            //services.AddExceptionHandler(mvcBuilder);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -41,11 +46,13 @@ namespace Main.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Error");
+
                 app.UseBrowserLink();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStaticFiles();

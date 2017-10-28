@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RR.AttributeService_V1\RR.AttributeService_V1.csproj" />
     <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
+    <ProjectReference Include="..\RR.ExceptionHandler\RR.ExceptionHandler.csproj" />
     <ProjectReference Include="..\RR.Logger_V1\RR.Logger_V1.csproj" />
   </ItemGroup>
 

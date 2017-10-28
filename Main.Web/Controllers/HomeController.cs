@@ -39,7 +39,31 @@ namespace Main.Web.Controllers
         public IActionResult Login(UserVievModel userVievModel)
         {
             _logger.LogDebug("Post Login");
+
+            //try
+            //{
+            //    throw new Exception("Post war falsch!");
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw new Exception("HomeController hat Fehler!", ex);
+            //}
+
             return View("Index", userVievModel);
+        }
+
+        public PostResult Test(string name, string location)
+        {
+            //try
+            //{
+            //    throw new Exception("Post war falsch!");
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("HomeController hat Fehler!", ex);
+            //}
+
+            return new PostResult();
         }
 
         public IActionResult About()
@@ -56,9 +80,9 @@ namespace Main.Web.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        public class PostResult
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            public string Name { get; set; } = "Sven";
         }
     }
 }
