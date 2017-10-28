@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Logger_V1", "RR.Logger_V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Common_V1", "RR.Common_V1\RR.Common_V1.csproj", "{9A55DE90-7BF2-458C-8CCA-D601084AD158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RR.Logger_V1_Tests", "Tests\RR.Logger_V1_Tests\RR.Logger_V1_Tests.csproj", "{A2612506-0ED4-4BA6-A2BB-AB173CE7A106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Logger_V1_Tests", "Tests\RR.Logger_V1_Tests\RR.Logger_V1_Tests.csproj", "{A2612506-0ED4-4BA6-A2BB-AB173CE7A106}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CD915080-EB3C-4691-B503-9B0296500C36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main.Web", "Main.Web\Main.Web.csproj", "{EAD14D09-B3FC-4ED2-BC7A-412B217169A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main.Web", "Main.Web\Main.Web.csproj", "{EAD14D09-B3FC-4ED2-BC7A-412B217169A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RR.AttributeService_V1", "RR.AttributeService_V1\RR.AttributeService_V1.csproj", "{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{EAD14D09-B3FC-4ED2-BC7A-412B217169A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD14D09-B3FC-4ED2-BC7A-412B217169A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD14D09-B3FC-4ED2-BC7A-412B217169A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

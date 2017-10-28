@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using RR.Common_V1;
 using Microsoft.Extensions.Options;
 using RR.Logger_V1;
+using RR.AttributeService_V1;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace Main.Web
 {
@@ -28,8 +30,8 @@ namespace Main.Web
             var options = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
 
             services.AddLogger(options.Value.LoggerConfiguration);
-            //services.AddSingleton<IAttributeService, AttributeService>();
-            //services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
+            services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
+            services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
 
             services.AddMvc();
         }
