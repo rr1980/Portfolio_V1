@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-
+using System.Collections.Generic;
 
 namespace RR.AttributeService_V1
 {
@@ -31,19 +31,26 @@ namespace RR.AttributeService_V1
             _setClass(output, "form-group" + (VmSm == true ? " form-group-sm" : ""));
             _setClass(output, VmClasses);
 
-            var label = new TagBuilder("label");
-            label.Attributes.Add("for", VmTarget.Name);
-            label.Attributes.Add("class", "col-md-2 control-label");
-            label.InnerHtml.AppendHtml(VmTarget.Name);
-            
-            var input = new TagBuilder("input");
-            input.Attributes.Add("type", VmType);
-            input.Attributes.Add("class", "form-control");
-            input.Attributes.Add("name", VmTarget.Name);
-            input.Attributes.Add("id", VmTarget.Name);
-            input.Attributes.Add("value", VmTarget.Model as string);
 
+            var label = Generator.GenerateLabel(ViewContext,
+                 VmTarget.ModelExplorer,
+                 VmTarget.Name,
+                 labelText: VmTarget.Name,
+                 htmlAttributes: new Dictionary<string, object>(new[] {
+                     new KeyValuePair<string, object>("class", "col-md-2 control-label")
+                 }));
             
+
+            var input = Generator.GenerateTextBox(ViewContext,
+                 VmTarget.ModelExplorer,
+                 VmTarget.Name,
+                 value: VmTarget.Model as string,
+                 format: null,
+                 htmlAttributes: new Dictionary<string, object>(new[] {
+                     new KeyValuePair<string, object>("type", VmType),
+                     new KeyValuePair<string, object>("class", "form-control")
+                 }));
+
             var span = Generator.GenerateValidationMessage(
                  ViewContext,
                  VmTarget.ModelExplorer,
@@ -51,7 +58,7 @@ namespace RR.AttributeService_V1
                  message: null,
                  tag: null,
                  htmlAttributes: null);
-
+            
             var div = new TagBuilder("div");
             div.Attributes.Add("class", "col-md-10");
             div.InnerHtml.AppendHtml(input);
@@ -59,7 +66,6 @@ namespace RR.AttributeService_V1
 
             output.Content.SetHtmlContent(label);
             output.Content.AppendHtml(div);
-            //output.Content.AppendHtml(input);
         }
 
         private static void _setClass(TagHelperOutput output, string classNames)
