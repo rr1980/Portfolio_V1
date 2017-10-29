@@ -10,7 +10,7 @@ namespace RR.Logger_V1
         {
             services.AddLogging(loggingBuilder =>
             {
-                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration)).SetMinimumLevel(LogLevel.Trace).AddFile("Logs/myapp-{Date}.txt");
+                loggingBuilder.ClearProviders().AddProvider(new LoggerProvider(loggerConfiguration)).SetMinimumLevel(LogLevel.Trace);//.AddFile("Logs/myapp-{Date}.txt");
             });
 
             return services;

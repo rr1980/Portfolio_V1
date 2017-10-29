@@ -9,11 +9,11 @@ using Microsoft.Extensions.Logging;
 using RR.Common_V1;
 using RR.AttributeService_V1;
 using RR.Logger_V1.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Main.Web.Controllers
 {
-
-
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IAttributeService<ViewModelAttribute> _attributeService;
@@ -42,23 +42,23 @@ namespace Main.Web.Controllers
             return View(new UserVievModel());
         }
 
-        [AutoValidateAntiforgeryToken]
-        public IActionResult Login(UserVievModel userVievModel)
-        {
-            List<TestClass> ttt = new List<TestClass>() { new TestClass() };
-            _logger.Log_Controller_Call("Post Login", userVievModel, ttt);
+        //[AutoValidateAntiforgeryToken]
+        //public IActionResult Login(UserVievModel userVievModel)
+        //{
+        //    List<TestClass> ttt = new List<TestClass>() { new TestClass() };
+        //    _logger.Log_Controller_Call("Post Login", userVievModel, ttt);
 
-            //try
-            //{
-            //    throw new Exception("Post war falsch!");
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("HomeController hat Fehler!", ex);
-            //}
+        //    //try
+        //    //{
+        //    //    throw new Exception("Post war falsch!");
+        //    //}
+        //    //catch (Exception ex)
+        //    //{
+        //    //    throw new Exception("HomeController hat Fehler!", ex);
+        //    //}
 
-            return View("Index", userVievModel);
-        }
+        //    return View("Index", userVievModel);
+        //}
 
         [AutoValidateAntiforgeryToken]
         public PostResult Test(string name, string location)
