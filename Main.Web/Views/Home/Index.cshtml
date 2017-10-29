@@ -6,28 +6,42 @@
 @model UserVievModel;
 
 <div class="row row-buffer-top">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-xs-12 col-lg-6 col-lg-offset-3">
         <form asp-action="Login" asp-controller="Home" class="form-horizontal">
-            <div class="row">
+            <div class="row row-buffer-top">
                 <vm-input vm-target="Name"></vm-input>
             </div>
-            <div class="row">
+
+            <div class="row row-buffer-top">
                 <vm-input vm-target="Vorname"></vm-input>
             </div>
-            <div class="row">
+
+            <div class="row row-buffer-top">
                 <vm-input vm-type="Password" vm-target="Password"></vm-input>
             </div>
 
-            <div class="row text-right">
-                <button type="submit" class="btn btn-sm btn-success">Login</button>
-                <button type="button" onclick="postServer()" class="btn btn-sm btn-success">Post(Ajax)</button>
+            <div class="row row-buffer-top">
+                <div class="form-group-sm col-xs-12 col-lg-12">
+                    <div class="btn-group btn-group-xs btn-group-lg col-xs-12 col-lg-offset-9 col-lg-3">
+                        <button type="submit" class="btn btn-sm btn-success col-xs-6 col-lg-6">Login</button>
+                        <button type="button" onclick="postServer()" class="btn btn-sm btn-success col-xs-6 col-lg-6">Post(Ajax)</button>
+                    </div>
+                </div>
             </div>
         </form>
+        <div class="row row-buffer-top">
+            <div class="form-group-sm col-xs-12 col-lg-12">
+                <div class="col-xs-12 col-lg-10 col-lg-offset-2">
+                    <textarea class="form-control" id="textContent" rows="5">@Model.Name</textarea>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     function postServer() {
+        $('#textContent').html();
         console.debug("POST(Ajax)!");
 
         var myData = { name: "John", location: "Boston" };
@@ -45,13 +59,14 @@
             cache: false,
 
             success: function (response) {
+                $('#textContent').html(JSON.stringify(response));
                 console.debug(response);
             },
             error: function (error, textStatus, errorThrown) {
                 console.debug(error);
                 console.debug(errorThrown);
                 console.debug(this);
-
+                $('#textContent').html(JSON.stringify(error));
                 $('#errIframe').contents().find('body').html(error.responseText)
                 $('.modal').modal('show');
             }

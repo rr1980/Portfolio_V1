@@ -15,7 +15,7 @@ namespace Main.Web.Models
             ViewModelValidationTypes = new[] {
                 ViewModelValidationType.NotNull
         })]
-        public string Name { get; set; } = "Rene";
+        public string Name { get; set; } //= "Rene";
 
         [StringLength(60, ErrorMessage = ">3 <60", MinimumLength = 3)]
         [ViewModel(

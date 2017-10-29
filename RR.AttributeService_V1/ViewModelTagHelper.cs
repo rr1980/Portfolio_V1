@@ -15,6 +15,7 @@ namespace RR.AttributeService_V1
         public ModelExpression VmTarget { get; set; }
         public string VmClasses { get; set; }
         public string VmType { get; set; } = "text";
+        public int VmColumn { get; set; } = 12;
         public bool VmSm { get; set; } = true;
         private IHtmlGenerator Generator { get; }
 
@@ -28,7 +29,7 @@ namespace RR.AttributeService_V1
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
 
-            _setClass(output, "form-group" + (VmSm == true ? " form-group-sm" : ""));
+            _setClass(output, (VmSm == true ? " form-group-sm" : "form-group") + (" col-xs-"+ VmColumn) + (" col-lg-" + VmColumn));
             _setClass(output, VmClasses);
 
 
@@ -38,7 +39,7 @@ namespace RR.AttributeService_V1
                  labelText: VmTarget.Name,
                  htmlAttributes: new Dictionary<string, object>
                  {
-                     { "class", "col-md-2 control-label" }
+                     { "class", "col-xs-3 col-lg-2 control-label" }
                  });
 
 
@@ -65,7 +66,7 @@ namespace RR.AttributeService_V1
                  });
 
             var div = new TagBuilder("div");
-            div.Attributes.Add("class", "col-md-10");
+            div.Attributes.Add("class", "col-xs-9 col-lg-10");
             div.InnerHtml.AppendHtml(input);
             div.InnerHtml.AppendHtml(span);
 
