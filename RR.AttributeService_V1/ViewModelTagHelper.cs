@@ -39,7 +39,7 @@ namespace RR.AttributeService_V1
                  labelText: VmTarget.Name,
                  htmlAttributes: new Dictionary<string, object>
                  {
-                     { "class", "col-xs-3 col-lg-2 control-label" }
+                     { "class", "col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label" }
                  });
 
 
@@ -66,7 +66,7 @@ namespace RR.AttributeService_V1
                  });
 
             var div = new TagBuilder("div");
-            div.Attributes.Add("class", "col-xs-9 col-lg-10");
+            div.Attributes.Add("class", "col-xs-12 col-sm-9 col-md-10 col-lg-10");
             div.InnerHtml.AppendHtml(input);
             div.InnerHtml.AppendHtml(span);
 
