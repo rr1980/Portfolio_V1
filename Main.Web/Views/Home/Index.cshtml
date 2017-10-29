@@ -29,11 +29,19 @@
 <script>
     function postServer() {
         console.debug("POST(Ajax)!");
+
+        var myData = { name: "John", location: "Boston" };
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.extend(myData, { '__RequestVerificationToken': token });
+
+
+        console.debug(myData);
+
         $.ajax({
             type: "POST",
-            contentType: "application/json",
-            url: "Test",
-            data: { name: "John", location: "Boston" },
+            contentType: "application/x-www-form-urlencoded",
+            url: "/Home/Test",
+            data: myData,
             cache: false,
 
             success: function (response) {
@@ -42,6 +50,7 @@
             error: function (error, textStatus, errorThrown) {
                 console.debug(error);
                 console.debug(errorThrown);
+                console.debug(this);
 
                 $('#errIframe').contents().find('body').html(error.responseText)
                 $('.modal').modal('show');

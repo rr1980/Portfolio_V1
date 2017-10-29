@@ -42,6 +42,7 @@ namespace Main.Web.Controllers
             return View(new UserVievModel());
         }
 
+        [AutoValidateAntiforgeryToken]
         public IActionResult Login(UserVievModel userVievModel)
         {
             List<TestClass> ttt = new List<TestClass>() { new TestClass() };
@@ -59,16 +60,17 @@ namespace Main.Web.Controllers
             return View("Index", userVievModel);
         }
 
+        [AutoValidateAntiforgeryToken]
         public PostResult Test(string name, string location)
         {
-            //try
-            //{
-            //    throw new Exception("Post war falsch!");
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("HomeController hat Fehler!", ex);
-            //}
+            try
+            {
+                throw new Exception("Post war falsch!");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("HomeController hat Fehler!", ex);
+            }
 
             return new PostResult();
         }

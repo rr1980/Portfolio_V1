@@ -13,7 +13,8 @@ using RR.AttributeService_V1;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using RR.ExceptionHandler;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 namespace Main.Web
 {
     public class Startup
@@ -32,15 +33,15 @@ namespace Main.Web
 
             var sp = services.BuildServiceProvider();
 
-            var options = sp.GetService<IOptions<AppSettings>>();
+            var settings = sp.GetService<IOptions<AppSettings>>();
 
-            services.AddLogger(options.Value.LoggerConfiguration);
+            services.AddLogger(settings.Value.LoggerConfiguration);
             //loggerFactory.AddFile("Logs/myapp-{Date}.txt");
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
 
-            var mvcBuilder = services.AddMvc();
+            var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             //services.AddExceptionHandler(mvcBuilder);
         }
 
