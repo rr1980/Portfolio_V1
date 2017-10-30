@@ -10,6 +10,7 @@ using RR.Common_V1;
 using RR.AttributeService_V1;
 using RR.Logger_V1.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using System.Runtime.InteropServices;
 
 namespace Main.Web.Controllers
 {
@@ -60,9 +61,28 @@ namespace Main.Web.Controllers
         //    return View("Index", userVievModel);
         //}
 
+        //private const int APPCOMMAND_VOLUME_MUTE = 0x80000;
+        //private const int APPCOMMAND_VOLUME_UP = 0xA0000;
+        //private const int APPCOMMAND_VOLUME_DOWN = 0x90000;
+        //private const int WM_APPCOMMAND = 0x319;
+
+        //[DllImport("user32.dll")]
+        //public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg,
+        //IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
+
+        [AllowAnonymous]
         [AutoValidateAntiforgeryToken]
         public PostResult Test(string name, string location)
         {
+            keybd_event(0xAD, 0, 0, 0);
+            //SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
+            //    (IntPtr)APPCOMMAND_VOLUME_MUTE);
+
             //try
             //{
             //    throw new Exception("Post war falsch!");
