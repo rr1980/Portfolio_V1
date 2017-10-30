@@ -2,6 +2,9 @@
 {
     public interface ISoundService
     {
-        bool ToggleMute();
+        (bool, int) ToggleMute();
+        (bool, int) GetVolumeInPercent();
+        (bool, int) VolumeStepDown();
+        (bool, int) VolumeStepUp();
     }
 }

@@ -3,16 +3,26 @@
 }
 
 @using Main.Web.Models;
-@model UserVievModel;
+@model HomeViewModel;
 
+<div class="container">
+    <div class="row row-buffer-top">
+        <div class="col-xs-12 col-lg-12">
 
-<div class="row row-buffer-top">
-    <div class="col-xs-12 col-lg-12">
-        <h1>MOIN!</h1>
-
-        <div class="form-group-sm col-xs-12 col-lg-12">
-            <div class="btn-group">
-                <button type="button" onclick="postServer()" class="btn btn-sm">Post(Ajax)</button>
+            <div class="form-group-sm col-xs-12 col-lg-12">
+                <div class="btn-group">
+                    <button type="button" onclick="onClickDown()" class="btn btn-sm">--</button>
+                </div>
+            </div>
+            <div class="form-group-sm col-xs-12 col-lg-12">
+                <div class="btn-group">
+                    <button type="button" onclick="onClickMute()" class="btn btn-sm @(Model.Mute == true ? "btn-danger" : "btn-success")" id="muteBtn">@Model.VolumnPercent</button>
+                </div>
+            </div>
+            <div class="form-group-sm col-xs-12 col-lg-12">
+                <div class="btn-group">
+                    <button type="button" onclick="onClickUp()" class="btn btn-sm">+</button>
+                </div>
             </div>
         </div>
     </div>
@@ -25,41 +35,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-<script>
-    function postServer() {
-        $('#textContent').html();
-        console.debug("POST(Ajax)!");
-
-        var myData = { name: "John", location: "Boston" };
-        var token = $('input[name="__RequestVerificationToken"]').val();
-        $.extend(myData, { '__RequestVerificationToken': token });
-
-        console.debug(myData);
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            url: "/Home/Test",
-            data: myData,
-            cache: false,
-
-            success: function (response) {
-                $('#textContent').html(JSON.stringify(response));
-                console.debug(response);
-            },
-            error: function (error, textStatus, errorThrown) {
-                console.debug(error);
-                console.debug(errorThrown);
-                console.debug(this);
-                $('#textContent').html(JSON.stringify(error));
-                $('#errIframe').contents().find('body').html(error.responseText)
-                $('.modal').modal('show');
-            }
-        });
-    }
-</script>

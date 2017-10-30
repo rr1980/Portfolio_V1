@@ -6,10 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.1.0-preview1-27377" />
+    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.0" />
     <!--<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.0-preview1-27377" />-->
-    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00023" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RR.AttributeService_V1\RR.AttributeService_V1.csproj" />
     <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
-    <ProjectReference Include="..\RR.ExceptionHandler\RR.ExceptionHandler.csproj" />
     <ProjectReference Include="..\RR.Logger_V1.Extensions\RR.Logger_V1.Extensions.csproj" />
     <ProjectReference Include="..\RR.Logger_V1\RR.Logger_V1.csproj" />
     <ProjectReference Include="..\RR.Migration\RR.Migration.csproj" />

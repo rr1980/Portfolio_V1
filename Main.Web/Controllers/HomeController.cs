@@ -31,22 +31,41 @@ namespace Main.Web.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Index()
         {
-            //var data0 = _attributeService.GetAllByType(typeof(UserVievModel));
-            //var data1 = _attributeService.GetAllByType<UserVievModel>();
-            //var data2 = _attributeService.GetAllByObj<UserVievModel>(new UserVievModel());
-            //var data3 = _attributeService.GetByProperty<UserVievModel>(o => o.Name);
-            //var data4 = _attributeService.GetByName<UserVievModel>("Vorname");
+            var volP = _soundService.GetVolumeInPercent();
 
-            _logger.LogDebug("Call Index");
-
-            return View(new UserVievModel());
+            return View(new HomeViewModel()
+            {
+                Mute = volP.Item1,
+                VolumnPercent = volP.Item2
+            });
         }
 
+        [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public PostResult Test(string name, string location)
+        public (bool, int) GetVolume()
         {
-            _soundService.ToggleMute();
-            return new PostResult();
+            return _soundService.GetVolumeInPercent();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public (bool, int) VolumeStepUp()
+        {
+            return  _soundService.VolumeStepUp();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public (bool, int) ToggleMute()
+        {
+            return  _soundService.ToggleMute();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public (bool, int) VolumeStepDown()
+        {
+            return  _soundService.VolumeStepDown();
         }
 
         [AutoValidateAntiforgeryToken]

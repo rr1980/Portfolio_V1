@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RR.Common_V1;
 using Microsoft.Extensions.Options;
-using RR.Logger_V1;
 using RR.AttributeService_V1;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using RR.ExceptionHandler;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using RR.Common_V1;
+using RR.Logger_V1;
 using RR.Migration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using RR.Sound;
+using System;
 
 namespace Main.Web
 {
@@ -39,10 +32,9 @@ namespace Main.Web
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=PortfolioV1;Trusted_Connection=True;";
-            
+
             services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
-
 
             var sp = services.BuildServiceProvider();
             var settings = sp.GetService<IOptions<AppSettings>>();
@@ -81,8 +73,6 @@ namespace Main.Web
                 //    OnValidatePrincipal = LastChangedValidator.ValidateAsync
                 //};
             });
-            
-
 
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             //services.AddExceptionHandler(mvcBuilder);
@@ -108,7 +98,6 @@ namespace Main.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
 
             app.UseMvc(routes =>
             {
