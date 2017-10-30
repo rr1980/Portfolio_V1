@@ -17,13 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main.Web", "Main.Web\Main.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.AttributeService_V1", "RR.AttributeService_V1\RR.AttributeService_V1.csproj", "{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.ExceptionHandler", "RR.ExceptionHandler\RR.ExceptionHandler.csproj", "{F238624C-44C7-4448-9F0E-EBAC2331235F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Logger_V1.Extensions", "RR.Logger_V1.Extensions\RR.Logger_V1.Extensions.csproj", "{154AD531-6143-46CE-94DE-F156DD9F41F2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Migration", "RR.Migration\RR.Migration.csproj", "{E7E66FA0-5454-4922-9D8D-42B7C2F82CF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RR.Sound", "RR.Sound\RR.Sound.csproj", "{94865D55-F2B8-4929-B95E-EFE3DAF85C1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RR.Sound", "RR.Sound\RR.Sound.csproj", "{94865D55-F2B8-4929-B95E-EFE3DAF85C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RR.Logger_V1.LoggerServer", "RR.Logger_V1.LoggerServer\RR.Logger_V1.LoggerServer.csproj", "{E7974A1A-7DC4-4B84-8696-D9C68C1A4A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RR.WebsocketService_V1", "RR.WebsocketService_V1\RR.WebsocketService_V1.csproj", "{48ED945E-61C6-4985-8310-FE1717FE2817}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +57,6 @@ Global
 		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C058ECFE-EB3C-4F00-8198-5CDF8F3856BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F238624C-44C7-4448-9F0E-EBAC2331235F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F238624C-44C7-4448-9F0E-EBAC2331235F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F238624C-44C7-4448-9F0E-EBAC2331235F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F238624C-44C7-4448-9F0E-EBAC2331235F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{154AD531-6143-46CE-94DE-F156DD9F41F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{154AD531-6143-46CE-94DE-F156DD9F41F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{154AD531-6143-46CE-94DE-F156DD9F41F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,6 +69,14 @@ Global
 		{94865D55-F2B8-4929-B95E-EFE3DAF85C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94865D55-F2B8-4929-B95E-EFE3DAF85C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94865D55-F2B8-4929-B95E-EFE3DAF85C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7974A1A-7DC4-4B84-8696-D9C68C1A4A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7974A1A-7DC4-4B84-8696-D9C68C1A4A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7974A1A-7DC4-4B84-8696-D9C68C1A4A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7974A1A-7DC4-4B84-8696-D9C68C1A4A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48ED945E-61C6-4985-8310-FE1717FE2817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48ED945E-61C6-4985-8310-FE1717FE2817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48ED945E-61C6-4985-8310-FE1717FE2817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48ED945E-61C6-4985-8310-FE1717FE2817}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

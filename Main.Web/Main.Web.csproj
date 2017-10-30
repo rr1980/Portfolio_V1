@@ -23,6 +23,7 @@
     <ProjectReference Include="..\RR.Logger_V1\RR.Logger_V1.csproj" />
     <ProjectReference Include="..\RR.Migration\RR.Migration.csproj" />
     <ProjectReference Include="..\RR.Sound\RR.Sound.csproj" />
+    <ProjectReference Include="..\RR.WebsocketService_V1\RR.WebsocketService_V1.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>

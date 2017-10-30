@@ -13,6 +13,7 @@ using RR.Common_V1;
 using RR.Logger_V1;
 using RR.Migration;
 using RR.Sound;
+using RR.WebsocketService_V1;
 using System;
 
 namespace Main.Web
@@ -75,6 +76,8 @@ namespace Main.Web
             });
 
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            //services.AddWebSocketLoggerService();
             //services.AddExceptionHandler(mvcBuilder);
         }
 
@@ -105,6 +108,8 @@ namespace Main.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.UseWebSocketLoggerService();
         }
     }
 }
