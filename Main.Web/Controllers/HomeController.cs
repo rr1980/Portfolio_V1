@@ -14,11 +14,14 @@ namespace Main.Web.Controllers
     {
         private readonly IAttributeService<ViewModelAttribute> _attributeService;
         private readonly ILogger<HomeController> _logger;
+        private readonly ISoundService _soundService;
 
-        public HomeController(IAttributeService<ViewModelAttribute> attributeService, ILoggerFactory loggerFactory)
+        public HomeController(ISoundService soundService, IAttributeService<ViewModelAttribute> attributeService, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<HomeController>();
             _logger.Log_Controller_Start();
+
+            _soundService = soundService;
 
             _attributeService = attributeService;
 
@@ -39,16 +42,10 @@ namespace Main.Web.Controllers
             return View(new UserVievModel());
         }
 
-        [DllImport("user32.dll")]
-        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-
-        // https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
-
-        //[AllowAnonymous]
         [AutoValidateAntiforgeryToken]
         public PostResult Test(string name, string location)
         {
-            keybd_event(0xAD, 0, 0, 0);
+            _soundService.ToggleMute();
             return new PostResult();
         }
 
@@ -74,3 +71,12 @@ namespace Main.Web.Controllers
         }
     }
 }
+
+
+
+//[DllImport("user32.dll")]
+//private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+//// https://msdn.microsoftcom/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
+
+//keybd_event(0xAD, 0, 0, 0);

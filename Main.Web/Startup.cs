@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using RR.Sound;
 
 namespace Main.Web
 {
@@ -51,7 +52,7 @@ namespace Main.Web
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
-
+            services.AddSingleton<ISoundService, SoundService>();
 
             services.AddAuthentication(options =>
             {
