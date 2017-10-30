@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RR.Common_V1;
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 
@@ -16,13 +17,14 @@ namespace RR.Logger_V1
     {
         private readonly ILogger _selfLogger;
         public string Name { get; private set; }
-        private LoggerConfiguration _config = new LoggerConfiguration();
+        //private LoggerConfiguration _config = new LoggerConfiguration();
+        private  LogLevel _filter;
 
-        public Logger(string name, LoggerConfiguration config, ILogger selfLogger = null)
+        public Logger(string name, LogLevel filter, ILogger selfLogger = null)
         {
             _selfLogger = selfLogger;
             Name = name;
-            _config = config;
+            _filter = filter;
         }
 
         public IDisposable BeginScope<TState>(TState state)
@@ -32,31 +34,7 @@ namespace RR.Logger_V1
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            if (_config.LogLevel.TryGetValue(Name, out var l))
-            {
-                return logLevel >= l;
-            }
-            else
-            {
-                var strA = Name.Split(".");
-                for (int i = strA.Length; i > 0; i--)
-                {
-
-                    var v = String.Join(".", strA.Take(i));
-                    if (_config.LogLevel.TryGetValue(v, out var ll))
-                    {
-                        return logLevel >= ll;
-                    }
-                }
-
-            }
-
-            if (_config.LogLevel.TryGetValue("Default", out var lll))
-            {
-                return logLevel >= lll;
-            }
-
-            return false;
+            return logLevel >= _filter;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
