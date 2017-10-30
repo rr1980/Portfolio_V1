@@ -15,7 +15,7 @@ namespace Main.Web.Models
             ViewModelValidationTypes = new[] {
                 ViewModelValidationType.NotNull
         })]
-        public string Name { get; set; } = "Owner";
+        public string Name { get; set; } = "Luke";
 
         [StringLength(60, ErrorMessage = ">3 <60", MinimumLength = 3)]
         [ViewModel(
@@ -33,6 +33,6 @@ namespace Main.Web.Models
             ViewModelValidationTypes = new[] {
                 ViewModelValidationType.NotNull
         })]
-        public string Password { get; set; } = "secret";
+        public string Password { get; set; } = "123";
     }
 }

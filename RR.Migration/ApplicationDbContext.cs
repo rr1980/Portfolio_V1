@@ -27,7 +27,7 @@ namespace RR.Migration
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -41,7 +41,7 @@ namespace RR.Migration
             optionsBuilder.UseSqlServer(connection);
         }
 
-        //public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<UserModel> Users { get; set; }
         //public DbSet<ApplicationRole> Roles { get; set; }
     }
 }

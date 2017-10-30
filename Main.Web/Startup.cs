@@ -19,6 +19,7 @@ using RR.Migration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace Main.Web
 {
@@ -37,50 +38,10 @@ namespace Main.Web
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=PortfolioV1;Trusted_Connection=True;";
+            
+            services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connection));
 
-            services.AddEntityFrameworkAAA(connection);
-            //services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(connection));
-
-            //        services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>(options =>
-            //options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
-
-            //services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase());
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.User.RequireUniqueEmail = false;
-
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 3;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                
-
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
-                
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-                options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
-                options.SlidingExpiration = true;
-                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-            });
 
             var sp = services.BuildServiceProvider();
             var settings = sp.GetService<IOptions<AppSettings>>();
@@ -90,6 +51,37 @@ namespace Main.Web
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
+
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            //.AddCookie();
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = "AuthCookie";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+
+                //options.Events = new CookieAuthenticationEvents
+                //{
+                //    OnValidatePrincipal = LastChangedValidator.ValidateAsync
+                //};
+            });
+            
+
 
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             //services.AddExceptionHandler(mvcBuilder);
@@ -114,10 +106,8 @@ namespace Main.Web
 
             app.UseStaticFiles();
 
-            //var context = app.ApplicationServices.GetService<ApplicationDbContext>();
-            //AddTestData(app).Wait();
-
             app.UseAuthentication();
+
 
             app.UseMvc(routes =>
             {
