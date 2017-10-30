@@ -17,7 +17,6 @@ namespace RR.Logger_V1
     {
         private readonly ILogger _selfLogger;
         public string Name { get; private set; }
-        //private LoggerConfiguration _config = new LoggerConfiguration();
         private  LogLevel _filter;
 
         public Logger(string name, LogLevel filter, ILogger selfLogger = null)
@@ -56,7 +55,6 @@ namespace RR.Logger_V1
             var e = ex;
             var message = "\t\t" + e.Message + Environment.NewLine;
             message += _getexceptionStackTrace("\t\t\t", e.StackTrace);
-            //message += Environment.NewLine;
 
             int tabCount = 3;
             while (e.InnerException != null)

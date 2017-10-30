@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Main.Web.Models;
-using Microsoft.Extensions.Logging;
-using RR.Common_V1;
-using RR.AttributeService_V1;
-using RR.Logger_V1.Extensions;
+﻿using Main.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using RR.AttributeService_V1;
+using RR.Common_V1;
+using RR.Logger_V1.Extensions;
 using System.Runtime.InteropServices;
 
 namespace Main.Web.Controllers
@@ -26,10 +21,11 @@ namespace Main.Web.Controllers
             _logger.Log_Controller_Start();
 
             _attributeService = attributeService;
-            
+
             _logger.Log_Controller_End();
         }
 
+        [AutoValidateAntiforgeryToken]
         public IActionResult Index()
         {
             //var data0 = _attributeService.GetAllByType(typeof(UserVievModel));
@@ -43,13 +39,12 @@ namespace Main.Web.Controllers
             return View(new UserVievModel());
         }
 
-
         [DllImport("user32.dll")]
-        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
         // https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [AutoValidateAntiforgeryToken]
         public PostResult Test(string name, string location)
         {
@@ -57,6 +52,7 @@ namespace Main.Web.Controllers
             return new PostResult();
         }
 
+        [AutoValidateAntiforgeryToken]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -64,6 +60,7 @@ namespace Main.Web.Controllers
             return View();
         }
 
+        [AutoValidateAntiforgeryToken]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

@@ -7,7 +7,7 @@
 
 <div class="row row-buffer-top">
     <div class="col-xs-12 col-lg-6 col-lg-offset-3">
-        <form asp-action="Login" asp-controller="Account" class="form-horizontal">
+        <form asp-action="Login" asp-controller="Account" asp-route-returnurl="@ViewBag.ReturnUrl" class="form-horizontal">
             <div class="row row-buffer-top">
                 <vm-input vm-target="Name"></vm-input>
             </div>
@@ -31,12 +31,10 @@
             <div class="row row-buffer-top">
                 <div class="form-group-sm col-xs-12 col-lg-12">
                     <div class="btn-group btn-group-lg hidden-sm hidden-md hidden-lg col-xs-12">
-                        <button type="submit" class="btn btn-lg btn-success col-xs-12">Login</button>
-                        <button type="button" onclick="postServer()" class="btn btn-lg col-xs-12">Post(Ajax)</button>
+                        <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
                     </div>
-                    <div class="btn-group hidden-xs btn-group-sm col-sm-offset-9 col-sm-3 col-lg-offset-8 col-lg-4">
-                        <button type="submit" class="btn btn-sm btn-success col-sm-6">Login</button>
-                        <button type="button" onclick="postServer()" class="btn btn-sm col-sm-6">Post(Ajax)</button>
+                    <div class="btn-group hidden-xs btn-group-sm col-sm-offset-10 col-sm-2 col-lg-offset-9 col-lg-3">
+                        <button type="submit" class="btn btn-sm btn-success btn-block">Login</button>
                     </div>
                 </div>
             </div>
@@ -50,38 +48,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function postServer() {
-        $('#textContent').html();
-        console.debug("POST(Ajax)!");
-
-        var myData = { name: "John", location: "Boston" };
-        var token = $('input[name="__RequestVerificationToken"]').val();
-        $.extend(myData, { '__RequestVerificationToken': token });
-
-
-        console.debug(myData);
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            url: "/Home/Test",
-            data: myData,
-            cache: false,
-
-            success: function (response) {
-                $('#textContent').html(JSON.stringify(response));
-                console.debug(response);
-            },
-            error: function (error, textStatus, errorThrown) {
-                console.debug(error);
-                console.debug(errorThrown);
-                console.debug(this);
-                $('#textContent').html(JSON.stringify(error));
-                $('#errIframe').contents().find('body').html(error.responseText)
-                $('.modal').modal('show');
-            }
-        });
-    }
-</script>
