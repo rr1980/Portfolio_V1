@@ -9,19 +9,16 @@
     <div class="row row-buffer-top">
         <div class="col-xs-12 col-lg-12">
 
-            <div class="form-group-sm col-xs-12 col-lg-12">
-                <div class="btn-group">
-                    <button type="button" onclick="onClickDown()" class="btn btn-sm">--</button>
+            <div class="form-group-sm col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                <div class="btn-group btn-group-lg hidden-sm hidden-md hidden-lg col-xs-12">
+                    <button type="button" onclick="onClickDown()" class="btn btn-lg col-xs-3">-</button>
+                    <button type="button" onclick="onClickMute()" class="muteBtn btn btn-lg col-xs-6 @(Model.Mute == true ? "btn-danger" : "btn-success")">@Model.VolumnPercent</button>
+                    <button type="button" onclick="onClickUp()" class="btn btn-lg col-xs-3">+</button>
                 </div>
-            </div>
-            <div class="form-group-sm col-xs-12 col-lg-12">
-                <div class="btn-group">
-                    <button type="button" onclick="onClickMute()" class="btn btn-sm @(Model.Mute == true ? "btn-danger" : "btn-success")" id="muteBtn">@Model.VolumnPercent</button>
-                </div>
-            </div>
-            <div class="form-group-sm col-xs-12 col-lg-12">
-                <div class="btn-group">
-                    <button type="button" onclick="onClickUp()" class="btn btn-sm">+</button>
+                <div class="btn-group btn-group-sm hidden-xs col-sm-12 col-md-12 col-lg-12">
+                    <button type="button" onclick="onClickDown()" class="btn btn-sm col-sm-3 col-md-3 col-lg-3">-</button>
+                    <button type="button" onclick="onClickMute()" class="muteBtn btn btn-sm col-sm-6 col-md-6 col-lg-6 @(Model.Mute == true ? "btn-danger" : "btn-success")">@Model.VolumnPercent</button>
+                    <button type="button" onclick="onClickUp()" class="btn btn-sm col-sm-3 col-md-3 col-lg-3">+</button>
                 </div>
             </div>
         </div>

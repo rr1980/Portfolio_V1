@@ -1,26 +1,23 @@
 ﻿function onClickDown() {
     postData("/Home/VolumeStepDown", {}, function (response) {
         setMuteBtn(response);
-        console.debug(response);
     });
 }
 
 function onClickMute() {
     postData("/Home/ToggleMute", {}, function (response) {
         setMuteBtn(response);
-        console.debug(response);
     });
 }
 
 function onClickUp() {
     postData("/Home/VolumeStepUp", {}, function (response) {
         setMuteBtn(response);
-        console.debug(response);
     });
 }
 
 function setMuteBtn(data) {
-    var btn = $('#muteBtn');
+    var btn = $('.muteBtn');
     $(btn).html(data.item2);
 
     if (data.item1) {
@@ -34,8 +31,6 @@ function setMuteBtn(data) {
 function postData(path, data, cb) {
     var token = $('input[name="__RequestVerificationToken"]').val();
     $.extend(data, { '__RequestVerificationToken': token });
-
-    console.debug(data);
 
     $.ajax({
         type: "POST",
