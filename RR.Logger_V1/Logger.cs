@@ -1,12 +1,24 @@
 ﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RR.Common_V1;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RR.Logger_V1
 {
+    public class JsonContent<T> : StringContent
+    {
+        public JsonContent(T obj) :
+            base(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")
+        { }
+    }
+
     public class LoggerStackTrace
     {
         public string MethodName { get; internal set; }
@@ -18,12 +30,17 @@ namespace RR.Logger_V1
         private readonly ILogger _selfLogger;
         public string Name { get; private set; }
         private  LogLevel _filter;
+        private readonly HttpClient _client;
 
         public Logger(string name, LogLevel filter, ILogger selfLogger = null)
         {
             _selfLogger = selfLogger;
             Name = name;
             _filter = filter;
+
+            _client = new HttpClient();
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public IDisposable BeginScope<TState>(TState state)
@@ -45,9 +62,26 @@ namespace RR.Logger_V1
 
             LoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), exception);
 
-            Debug.WriteLine($"{DateTime.Now} {logLevel}: [{eventId.Id}] {str.NameSpace}: {str.MethodName} {Environment.NewLine + " \t "} "
+
+            var msg = $"{DateTime.Now} {logLevel}: [{eventId.Id}] {str.NameSpace}: {str.MethodName} {Environment.NewLine + " \t "} "
                 + formatter(state, exception) + Environment.NewLine
-                + (exception != null ? _getException(exception) + Environment.NewLine : ""));
+                + (exception != null ? _getException(exception) + Environment.NewLine : "");
+
+            //Debug.WriteLine(msg);
+
+            ProcessRepositories(msg);
+        }
+
+
+
+        private async Task ProcessRepositories(string msg)
+        {
+            var stringTask = _client.PostAsync("http://localhost:54554/api/values", new JsonContent<LoggerMsg>(new LoggerMsg()
+            {
+                Msg = msg
+            }));
+            var result = await stringTask;
+            //Console.Write(msg);
         }
 
         private string _getException(Exception ex)

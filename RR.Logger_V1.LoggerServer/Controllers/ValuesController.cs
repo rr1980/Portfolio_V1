@@ -1,12 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using RR.Common_V1;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace RR.Logger_V1.LoggerServer.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly ILogger<ValuesController> _logger;
+
+        public ValuesController(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateLogger<ValuesController>();
+            _logger.LogInformation("ValuesController created!");
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -23,9 +34,18 @@ namespace RR.Logger_V1.LoggerServer.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Log([FromBody]LoggerMsg value)
         {
+            //_logger.LogInformation("ValuesController created!");
+            _logger.LogInformation("Receive Msg: "+ value.Msg);
+            Debug.WriteLine(value.Msg);
         }
+
+        //// POST api/values
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
         // PUT api/values/5
         [HttpPut("{id}")]
