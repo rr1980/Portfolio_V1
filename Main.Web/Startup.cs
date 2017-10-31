@@ -63,7 +63,7 @@ namespace Main.Web
                 options.Cookie.HttpOnly = true;
                 //options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SameSite = SameSiteMode.None; //<THIS!!!
-                //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
 
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Account/Login";
@@ -77,6 +77,8 @@ namespace Main.Web
                 //    OnValidatePrincipal = LastChangedValidator.ValidateAsync
                 //};
             });
+
+            //services.AddCors();
 
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
@@ -100,14 +102,13 @@ namespace Main.Web
             }
 
             app.UseStatusCodePages("text/plain", "<h1>Status code page, status code: {0}</h1>");
+            
+            //app.UseCors(builder =>
+            //    builder.WithOrigins("http://rrsound.de")
+            //    .AllowAnyHeader());
 
             app.UseStaticFiles();
 
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            //    await next();
-            //});
 
             app.UseAuthentication();
 

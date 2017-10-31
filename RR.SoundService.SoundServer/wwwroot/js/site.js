@@ -1,5 +1,6 @@
-﻿var lf = "http://rrsound.de";
-//var lf = "http://localhost:58157";
+﻿//var lf = "http://rrsound.de:81";
+//var lf = ":58157";
+var lf = "http://" + window.location.hostname + ":81";
 
 function onClickDown() {
     postData("/Home/VolumeStepDown", {}, function (response) {
@@ -8,6 +9,8 @@ function onClickDown() {
 }
 
 function onClickMute() {
+    console.debug(window.location.hostname);
+
     postData("/Home/ToggleMute", {}, function (response) {
         setMuteBtn(response);
     });

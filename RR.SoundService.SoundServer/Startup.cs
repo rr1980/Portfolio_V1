@@ -30,6 +30,8 @@ namespace RR.SoundService.SoundServer
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
             services.AddSingleton<ISoundService, SoundService>();
 
+            services.AddCors();
+
             //services.AddMvc();
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
         }
@@ -47,15 +49,19 @@ namespace RR.SoundService.SoundServer
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.Use(async (context, next) =>
-            {
-                //context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM http://rrsound.de");
-                //context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM http://localhost:49985/");
-                context.Response.Headers.Add("X-Frame-Options", "ALLOW");
-                //context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'");
-                context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-                await next();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    //context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM http://rrsound.de");
+            //    //context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM http://localhost:49985/");
+            //    context.Response.Headers.Add("X-Frame-Options", "ALLOW");
+            //    //context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'");
+            //    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //    await next();
+            //});
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:80")
+                .AllowAnyHeader());
 
             app.UseStaticFiles();
 

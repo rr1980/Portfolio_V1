@@ -12,12 +12,13 @@
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js",
+      "wwwroot/js/home.js",
       "wwwroot/lib/js-cookie/src/js.cookie.js"
     ],
-    // Optionally specify minification options  
+    // Optionally specify minification options
     "minify": {
-      "enabled": true,
-      "renameLocals": true
+      "enabled": false,
+      "renameLocals": false
     },
     // Optionally generate .map file
     "sourceMap": false
