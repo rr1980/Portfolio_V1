@@ -1,38 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using RR.Common_V1;
+using RR.Logger.Common;
 using System;
-using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace RR.Logger_V1
+namespace RR.Logger
 {
-    public class JsonContent<T> : StringContent
-    {
-        public JsonContent(T obj) :
-            base(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")
-        { }
-    }
-
-    public class LoggerStackTrace
-    {
-        public string MethodName { get; internal set; }
-        public string NameSpace { get; internal set; }
-
-    }
-    public class Logger : ILogger
+    public class RRLogger : ILogger
     {
         private readonly ILogger _selfLogger;
         public string Name { get; private set; }
-        private  LogLevel _filter;
+        private LogLevel _filter;
         private readonly HttpClient _client;
 
-        public Logger(string name, LogLevel filter, ILogger selfLogger = null)
+        public RRLogger(string name, LogLevel filter, ILogger selfLogger = null)
         {
             _selfLogger = selfLogger;
             Name = name;
@@ -60,7 +44,7 @@ namespace RR.Logger_V1
                 return;
             }
 
-            LoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), exception);
+            RRLoggerStackTrace str = _getLoggerStackTrace(new StackTrace(), exception);
 
 
             var msg = $"{DateTime.Now} {logLevel}: [{eventId.Id}] {str.NameSpace}: {str.MethodName} {Environment.NewLine + " \t "} "
@@ -69,14 +53,14 @@ namespace RR.Logger_V1
 
             //Debug.WriteLine(msg);
 
-            ProcessRepositories(msg);
+            Task.Run(() => ProcessRepositories(msg));
         }
 
 
 
         private async Task ProcessRepositories(string msg)
         {
-            var stringTask = _client.PostAsync("http://localhost:54554/api/values", new JsonContent<LoggerMsg>(new LoggerMsg()
+            var stringTask = _client.PostAsync("http://localhost:54554/api/values", new JsonContent<RRLoggerMsg>(new RRLoggerMsg()
             {
                 Msg = msg
             }));
@@ -125,16 +109,16 @@ namespace RR.Logger_V1
             return msg + Environment.NewLine;
         }
 
-        private LoggerStackTrace _getLoggerStackTrace(StackTrace str, Exception ex = null)
+        private RRLoggerStackTrace _getLoggerStackTrace(StackTrace str, Exception ex = null)
         {
-            if(string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name))
             {
                 throw new NullReferenceException("Name darf nicht NULL sein!");
             }
             if (ex == null || ex.TargetSite == null)
             {
                 var frame = str.GetFrames().FirstOrDefault(f => f.GetMethod()?.ReflectedType?.Namespace + "." + f.GetMethod()?.ReflectedType?.Name == Name);
-                return new LoggerStackTrace()
+                return new RRLoggerStackTrace()
                 {
                     MethodName = frame?.GetMethod()?.Name,
                     NameSpace = Name
@@ -142,7 +126,7 @@ namespace RR.Logger_V1
             }
             else
             {
-                return new LoggerStackTrace()
+                return new RRLoggerStackTrace()
                 {
                     MethodName = ex.TargetSite?.Name,
                     NameSpace = ex.TargetSite?.DeclaringType.FullName
@@ -150,4 +134,4 @@ namespace RR.Logger_V1
             }
         }
     }
-}
+    }

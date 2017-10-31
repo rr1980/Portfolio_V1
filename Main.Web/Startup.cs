@@ -10,7 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RR.AttributeService_V1;
 using RR.Common_V1;
-using RR.Logger_V1;
+using RR.Logger;
+using RR.Logger.Common;
 using RR.Migration;
 using RR.Sound;
 using RR.WebsocketService_V1;
@@ -30,7 +31,7 @@ namespace Main.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<RRLoggerConfiguration>(Configuration.GetSection("AppSettings").GetSection("RRLoggerConfiguration"));
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=PortfolioV1;Trusted_Connection=True;";
 
@@ -38,9 +39,9 @@ namespace Main.Web
                 options.UseSqlServer(connection));
 
             var sp = services.BuildServiceProvider();
-            var settings = sp.GetService<IOptions<AppSettings>>();
+            var settings = sp.GetService<IOptions<RRLoggerConfiguration>>();
 
-            services.AddLogger(settings.Value.LoggerConfiguration);
+            services.AddRRLogger(settings.Value);
             //loggerFactory.AddFile("Logs/myapp-{Date}.txt");
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();

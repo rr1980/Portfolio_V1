@@ -5,7 +5,7 @@ using RR.Common_V1;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace RR.Logger_V1.LoggerServer.Controllers
+namespace RR.Logger.LoggerServer.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller

@@ -1,26 +1,26 @@
 ﻿using Microsoft.Extensions.Logging;
-using RR.Common_V1;
+using RR.Logger.Common;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace RR.Logger_V1
+namespace RR.Logger
 {
-    public class LoggerProvider : ILoggerProvider
+    public class RRLoggerProvider : ILoggerProvider
     {
-        private readonly LoggerConfiguration _config;
+        private readonly RRLoggerConfiguration _config;
         private readonly ConcurrentDictionary<string, ILogger> _loggers = new ConcurrentDictionary<string, ILogger>();
         public static ILogger SelfLogger { get; private set; }
 
-        public LoggerProvider(LoggerConfiguration config)
+        public RRLoggerProvider(RRLoggerConfiguration config)
         {
             _config = config;
-            SelfLogger = new Logger(typeof(Logger).FullName, _getFilterLogLvl(typeof(Logger).FullName));
+            SelfLogger = new RRLogger(typeof(RRLogger).FullName, _getFilterLogLvl(typeof(RRLogger).FullName));
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            return _loggers.GetOrAdd(categoryName, name => new Logger(name, _getFilterLogLvl(categoryName), SelfLogger));
+            return _loggers.GetOrAdd(categoryName, name => new RRLogger(name, _getFilterLogLvl(categoryName), SelfLogger));
         }
 
         public void Dispose()
@@ -57,4 +57,4 @@ namespace RR.Logger_V1
             return LogLevel.Trace;
         }
     }
-}
+    }

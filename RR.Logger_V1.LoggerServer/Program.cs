@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace RR.Logger_V1.LoggerServer
+namespace RR.Logger.LoggerServer
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RR.Common_V1;
-using RR.Logger_V1.Extensions;
+using RR.Logger.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;

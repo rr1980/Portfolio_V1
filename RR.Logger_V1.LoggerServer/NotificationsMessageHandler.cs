@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 
-namespace RR.Logger_V1.LoggerServer
+namespace RR.Logger.LoggerServer
 {
     public class NotificationsMessageHandler : WebSocketHandler
     {

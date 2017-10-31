@@ -18,8 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
-    <ProjectReference Include="..\RR.Logger_V1.Extensions\RR.Logger_V1.Extensions.csproj" />
-    <ProjectReference Include="..\RR.Logger_V1\RR.Logger_V1.csproj" />
+    <ProjectReference Include="..\RR.Logger.Common\RR.Logger.Common.csproj" />
+    <ProjectReference Include="..\RR.Logger.Extension\RR.Logger.Extension.csproj" />
+    <ProjectReference Include="..\RR.Logger\RR.Logger.csproj" />
     <ProjectReference Include="..\RR.WebsocketService_V1\RR.WebsocketService_V1.csproj" />
   </ItemGroup>
 

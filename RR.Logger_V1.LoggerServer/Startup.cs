@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RR.WebsocketService_V1;
 
-namespace RR.Logger_V1.LoggerServer
+namespace RR.Logger.LoggerServer
 {
     public class Startup
     {

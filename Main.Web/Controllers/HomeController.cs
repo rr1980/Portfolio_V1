@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RR.AttributeService_V1;
 using RR.Common_V1;
-using RR.Logger_V1.Extensions;
+using RR.Logger.Extension;
 using System.Runtime.InteropServices;
 
 namespace Main.Web.Controllers

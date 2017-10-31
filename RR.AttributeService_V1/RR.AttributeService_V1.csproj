@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RR.Common_V1\RR.Common_V1.csproj" />
-    <ProjectReference Include="..\RR.Logger_V1.Extensions\RR.Logger_V1.Extensions.csproj" />
+    <ProjectReference Include="..\RR.Logger.Common\RR.Logger.Common.csproj" />
+    <ProjectReference Include="..\RR.Logger.Extension\RR.Logger.Extension.csproj" />
+    <ProjectReference Include="..\RR.Logger\RR.Logger.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +38,9 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Localization.Abstractions">
       <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.localization.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Localization.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.logging.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
