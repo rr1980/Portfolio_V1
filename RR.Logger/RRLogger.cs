@@ -63,14 +63,11 @@ namespace RR.Logger
 
         private async Task ProcessRepositories(string msg)
         {
-            //var name = Dns.GetHostName();
-            //Debug.WriteLine("http://localhost" + ":" + _logServerPort + "/api/values");
             var stringTask = _client.PostAsync("http://localhost" + ":" + _logServerPort + "/api/values", new JsonContent<RRLoggerMsg>(new RRLoggerMsg()
             {
                 Msg = msg
             }));
             var result = await stringTask;
-            //Console.Write(msg);
         }
 
         private string _getException(Exception ex)

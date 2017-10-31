@@ -1,6 +1,8 @@
 ﻿//var lf = "http://rrsound.de:81";
 //var lf = ":58157";
-var lf = "http://" + window.location.hostname + ":81";
+//var lf = "http://" + window.location.hostname + ":81";
+//var lf = "http://" + window.location.hostname + ":58157";
+var lf = "http://" + window.location.hostname + ":" + portToPost;
 
 function onClickDown() {
     postData("/Home/VolumeStepDown", {}, function (response) {

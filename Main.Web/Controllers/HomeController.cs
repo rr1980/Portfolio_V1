@@ -9,6 +9,7 @@ using RR.AttributeService_V1;
 using RR.Common_V1;
 using RR.Logger.Extension;
 using System;
+using System.Collections.Generic;
 //using RR.SoundService.Common;
 using System.Runtime.InteropServices;
 
@@ -36,27 +37,42 @@ namespace Main.Web.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Index()
         {
-            CookieOptions options = new CookieOptions();
-            //options.Expires = DateTime.Now.AddDays(1);
-            
-            options.HttpOnly = false;
-            options.SameSite = SameSiteMode.None;
+            //CookieOptions options = new CookieOptions();
+            ////options.Expires = DateTime.Now.AddDays(1);
 
-            
-            //settingValue.Ports.Add("Sound", 58157);
-            var settingValue = new SettingsCookie();
+            //options.HttpOnly = false;
+            //options.SameSite = SameSiteMode.None;
 
-            foreach (var p in _appSettings.Value.Ports)
-            {
-                settingValue.Ports.Add(p.Key, p.Value);
-            }
-            
-            Response.Cookies.Append("SettingsCookie", JsonConvert.SerializeObject(settingValue), options);
-            
 
-            return View(new HomeViewModel());
+            ////settingValue.Ports.Add("Sound", 58157);
+            //var settingValue = new SettingsCookie();
+
+            //foreach (var p in _appSettings.Value.Ports)
+            //{
+            //    settingValue.Ports.Add(p.Key, p.Value);
+            //}
+
+            //Response.Cookies.Append("SettingsCookie", JsonConvert.SerializeObject(settingValue), options);
+            //var tmp = Request;
+            //var result = new HomeViewModel();
+            //foreach (var item in _appSettings.Value.Ports)
+            //{
+            //    result.Adds.Add(Request.Scheme + "://" + Request.Host.Host + ":" + item.Value);
+            //}
+
+
+            var url = _getUrl("Sound");
+            ViewData["AddUrl_Sound"] = url;
+            return View();
         }
         
+        private string _getUrl(string add)
+        {
+            var port = _appSettings.Value.Ports[add];
+
+            return Request.Scheme + "://" + Request.Host.Host + ":" + port;
+        }
+
         [AutoValidateAntiforgeryToken]
         public IActionResult About()
         {

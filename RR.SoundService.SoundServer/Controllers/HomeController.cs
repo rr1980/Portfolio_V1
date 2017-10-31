@@ -10,6 +10,7 @@ using RR.AttributeService_V1;
 using Microsoft.Extensions.Logging;
 using RR.Common_V1;
 using RR.Logger.Extension;
+using Microsoft.Extensions.Configuration;
 
 namespace RR.SoundService.SoundServer.Controllers
 {
@@ -18,15 +19,16 @@ namespace RR.SoundService.SoundServer.Controllers
         private readonly IAttributeService<ViewModelAttribute> _attributeService;
         private readonly ILogger<HomeController> _logger;
         private readonly ISoundService _soundService;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ISoundService soundService, IAttributeService<ViewModelAttribute> attributeService, ILoggerFactory loggerFactory)
+        public HomeController(ISoundService soundService, IAttributeService<ViewModelAttribute> attributeService, ILoggerFactory loggerFactory, IConfiguration configuration)
         {
             _logger = loggerFactory.CreateLogger<HomeController>();
             _logger.Log_Controller_Start();
 
             _soundService = soundService;
-
             _attributeService = attributeService;
+            _configuration = configuration;
 
             _logger.Log_Controller_End();
         }
@@ -34,6 +36,8 @@ namespace RR.SoundService.SoundServer.Controllers
         //[AutoValidateAntiforgeryToken]
         public IActionResult Index()
         {
+            ViewData["Port"] = _configuration.GetSection("Port").Value;
+
             var volP = _soundService.GetVolumeInPercent();
 
             return View(new HomeViewModel()
