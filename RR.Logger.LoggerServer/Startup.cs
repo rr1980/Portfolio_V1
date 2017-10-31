@@ -23,6 +23,7 @@ namespace RR.Logger.LoggerServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
             services.AddWebSocketService();
         }
@@ -33,6 +34,10 @@ namespace RR.Logger.LoggerServer
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:80")
+                .AllowAnyHeader());
 
             app.UseStaticFiles();
             app.UseWebSockets();

@@ -8,19 +8,21 @@ namespace RR.Logger
 {
     public class RRLoggerProvider : ILoggerProvider
     {
+        private readonly int _logServerPort;
         private readonly RRLoggerConfiguration _config;
         private readonly ConcurrentDictionary<string, ILogger> _loggers = new ConcurrentDictionary<string, ILogger>();
         public static ILogger SelfLogger { get; private set; }
 
-        public RRLoggerProvider(RRLoggerConfiguration config)
+        public RRLoggerProvider(RRLoggerConfiguration config, int logServerPort)
         {
             _config = config;
-            SelfLogger = new RRLogger(typeof(RRLogger).FullName, _getFilterLogLvl(typeof(RRLogger).FullName));
+            _logServerPort = logServerPort;
+            SelfLogger = new RRLogger(typeof(RRLogger).FullName, _getFilterLogLvl(typeof(RRLogger).FullName), logServerPort);
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            return _loggers.GetOrAdd(categoryName, name => new RRLogger(name, _getFilterLogLvl(categoryName), SelfLogger));
+            return _loggers.GetOrAdd(categoryName, name => new RRLogger(name, _getFilterLogLvl(categoryName), _logServerPort, SelfLogger));
         }
 
         public void Dispose()

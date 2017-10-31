@@ -1,8 +1,12 @@
-﻿
+﻿$(document).ready(function () {
+    var c = getCookie("SettingsCookie");
 
-$(document).ready(function () {
-    $('#soundContent').attr('src', "http://" + window.location.hostname + ":81" );
+    console.debug(c.Sound);
+
+    //$('#soundContent').attr('src', "http://" + window.location.hostname + ":58157");
+    $('#soundContent').attr('src', "http://" + window.location.hostname + ":" + c.Sound);
     //getData("/home", {}, function (response) {
     //    $('#soundContentContainer').html(response);
     //});
 });
+

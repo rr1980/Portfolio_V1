@@ -32,6 +32,7 @@ namespace Main.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<RRLoggerConfiguration>(Configuration.GetSection("AppSettings").GetSection("RRLoggerConfiguration"));
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=PortfolioV1;Trusted_Connection=True;";
@@ -40,9 +41,10 @@ namespace Main.Web
                 options.UseSqlServer(connection));
 
             var sp = services.BuildServiceProvider();
-            var settings = sp.GetService<IOptions<RRLoggerConfiguration>>();
+            var loggerSettings = sp.GetService<IOptions<RRLoggerConfiguration>>();
+            var appSettings = sp.GetService<IOptions<AppSettings>>();
 
-            services.AddRRLogger(settings.Value);
+            services.AddRRLogger(loggerSettings.Value, appSettings.Value.Ports["Log"]);
             //loggerFactory.AddFile("Logs/myapp-{Date}.txt");
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();

@@ -12,8 +12,7 @@
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js",
-      "wwwroot/js/home.js",
-      "wwwroot/lib/js-cookie/src/js.cookie.js"
+      "wwwroot/js/home.js"
     ],
     // Optionally specify minification options
     "minify": {

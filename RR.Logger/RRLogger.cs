@@ -3,6 +3,7 @@ using RR.Logger.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,16 +12,18 @@ namespace RR.Logger
 {
     public class RRLogger : ILogger
     {
+        private readonly int _logServerPort;
         private readonly ILogger _selfLogger;
         public string Name { get; private set; }
         private LogLevel _filter;
         private readonly HttpClient _client;
 
-        public RRLogger(string name, LogLevel filter, ILogger selfLogger = null)
+        public RRLogger(string name, LogLevel filter, int logServerPort, ILogger selfLogger = null)
         {
             _selfLogger = selfLogger;
             Name = name;
             _filter = filter;
+            _logServerPort = logServerPort;
 
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -60,7 +63,9 @@ namespace RR.Logger
 
         private async Task ProcessRepositories(string msg)
         {
-            var stringTask = _client.PostAsync("http://localhost:54554/api/values", new JsonContent<RRLoggerMsg>(new RRLoggerMsg()
+            //var name = Dns.GetHostName();
+            //Debug.WriteLine("http://localhost" + ":" + _logServerPort + "/api/values");
+            var stringTask = _client.PostAsync("http://localhost" + ":" + _logServerPort + "/api/values", new JsonContent<RRLoggerMsg>(new RRLoggerMsg()
             {
                 Msg = msg
             }));

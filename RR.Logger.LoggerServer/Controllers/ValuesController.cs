@@ -5,6 +5,7 @@ using RR.Common_V1;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using RR.Logger.Common;
+using System;
 
 namespace RR.Logger.LoggerServer.Controllers
 {
@@ -38,8 +39,9 @@ namespace RR.Logger.LoggerServer.Controllers
         public void Log([FromBody]RRLoggerMsg value)
         {
             //_logger.LogInformation("ValuesController created!");
-            _logger.LogInformation("Receive Msg: "+ value.Msg);
-            Debug.WriteLine(value.Msg);
+            //_logger.LogInformation("Receive Msg: "+ value.Msg);
+            Debug.WriteLine("----"+value.Msg);
+            Console.WriteLine("----"+value.Msg);
         }
 
         //// POST api/values
