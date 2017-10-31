@@ -13,7 +13,8 @@ using RR.Common_V1;
 using RR.Logger;
 using RR.Logger.Common;
 using RR.Migration;
-using RR.Sound;
+//using RR.SoundService;
+//using RR.SoundService.Common;
 using RR.WebsocketService_V1;
 using System;
 
@@ -46,7 +47,7 @@ namespace Main.Web
 
             services.AddSingleton<IAttributeService<ViewModelAttribute>, AttributeService>();
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
-            services.AddSingleton<ISoundService, SoundService>();
+            //services.AddSingleton<ISoundService, SoundService>();
 
             services.AddAuthentication(options =>
             {
@@ -60,7 +61,8 @@ namespace Main.Web
             {
                 options.Cookie.Name = "AuthCookie";
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Lax;
+                //options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SameSite = SameSiteMode.None; //<THIS!!!
                 //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
@@ -100,6 +102,12 @@ namespace Main.Web
             app.UseStatusCodePages("text/plain", "<h1>Status code page, status code: {0}</h1>");
 
             app.UseStaticFiles();
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //    await next();
+            //});
 
             app.UseAuthentication();
 

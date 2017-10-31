@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using NAudio.CoreAudioApi;
-using RR.Common_V1;
+using RR.SoundService.Common;
 using System;
 
-namespace RR.Sound
+namespace RR.SoundService
 {
     public class SoundService : ISoundService
     {

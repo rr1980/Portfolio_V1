@@ -35,3 +35,21 @@
 .row-buffer-top {
     padding-top: 15px;
 }
+
+@media (max-width: 796px) {
+    #soundContent {
+        margin: 0 ;
+        padding: 0 ;
+        height: 46px ;
+        width: 100% ;
+    }
+}
+
+@media (min-width: 796px) {
+    #soundContent {
+        margin: 0;
+        padding: 0;
+        height: 30px;
+        width: 100%;
+    }
+}

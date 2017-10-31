@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RR.Common_V1;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using RR.Logger.Common;
 
 namespace RR.Logger.LoggerServer.Controllers
 {
@@ -34,7 +35,7 @@ namespace RR.Logger.LoggerServer.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Log([FromBody]LoggerMsg value)
+        public void Log([FromBody]RRLoggerMsg value)
         {
             //_logger.LogInformation("ValuesController created!");
             _logger.LogInformation("Receive Msg: "+ value.Msg);

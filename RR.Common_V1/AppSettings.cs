@@ -4,6 +4,6 @@ namespace RR.Common_V1
 {
     public class AppSettings 
     {
-        public LoggerConfiguration LoggerConfiguration { get; set; }
+        //public LoggerConfiguration LoggerConfiguration { get; set; }
     }
 }

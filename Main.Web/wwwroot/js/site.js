@@ -1,4 +1,7 @@
-﻿function onClickDown() {
+﻿
+var lh = "http://rrsound.de";
+
+function onClickDown() {
     postData("/Home/VolumeStepDown", {}, function (response) {
         setMuteBtn(response);
     });
@@ -35,7 +38,7 @@ function postData(path, data, cb) {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: path,
+        url: lh+path,
         data: data,
         cache: false,
 
