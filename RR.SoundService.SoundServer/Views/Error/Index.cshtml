@@ -1,0 +1,21 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "_ErrorLayout";
+}
+
+<div class="container">
+    <h1 class="text-danger">Error!</h1>
+
+    @if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <h3>@Model.Message</h3>
+    <p>
+        Place: <strong>@Model.Place</strong>
+    </p>
+</div>

@@ -104,7 +104,8 @@ namespace Main.Web
             }
 
             app.UseStatusCodePages("text/plain", "<h1>Status code page, status code: {0}</h1>");
-            
+
+            //app.UseCors(builder => builder.AllowAnyOrigin());
             //app.UseCors(builder =>
             //    builder.WithOrigins("http://rrsound.de")
             //    .AllowAnyHeader());

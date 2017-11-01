@@ -30,7 +30,7 @@ namespace RR.SoundService.SoundServer
             services.AddSingleton<IValidationAttributeAdapterProvider, ViewModelAttributeAdapterProvider>();
             services.AddSingleton<ISoundService, SoundService>();
 
-            services.AddCors();
+            //services.AddCors();
 
             //services.AddMvc();
             var mvcBuilder = services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
@@ -41,12 +41,13 @@ namespace RR.SoundService.SoundServer
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/Error");
                 app.UseBrowserLink();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             //app.Use(async (context, next) =>
@@ -58,10 +59,10 @@ namespace RR.SoundService.SoundServer
             //    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             //    await next();
             //});
-
-            app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:80")
-                .AllowAnyHeader());
+            //app.UseCors(builder => builder.AllowAnyOrigin());
+            //app.UseCors(builder =>
+            //    builder.WithOrigins("http://localhost:80")
+            //    .AllowAnyHeader());
 
             app.UseStaticFiles();
 

@@ -1,4 +1,5 @@
 ﻿
+
 function getCookie(c_name) {
 
     var c = Cookies.get("SettingsCookie");

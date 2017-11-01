@@ -32,21 +32,26 @@
     height: 100%;
 }
 
+.noPadding-LR {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .row-buffer-top {
     padding-top: 15px;
 }
 
-@media (max-width: 796px) {
-    #soundContent {
-        margin: 0 ;
-        padding: 0 ;
-        height: 46px ;
-        width: 100% ;
+@media (max-width: 1600px) {
+    .addContent {
+        margin: 0;
+        padding: 0;
+        height: 46px;
+        width: 100%;
     }
 }
 
-@media (min-width: 796px) {
-    #soundContent {
+@media (min-width: 1600px) {
+    .addContent {
         margin: 0;
         padding: 0;
         height: 30px;

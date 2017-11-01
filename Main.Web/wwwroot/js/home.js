@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+
+
     //var c = getCookie("SettingsCookie");
 
     //console.debug(c.Sound);

@@ -70,7 +70,8 @@ namespace Main.Web.Controllers
         {
             var port = _appSettings.Value.Ports[add];
 
-            return Request.Scheme + "://" + Request.Host.Host + ":" + port;
+            return Request.Scheme + "://" + Request.Host.Host + "/Sound";
+            //return Request.Scheme + "://" + Request.Host.Host + ":" + port;
         }
 
         [AutoValidateAntiforgeryToken]

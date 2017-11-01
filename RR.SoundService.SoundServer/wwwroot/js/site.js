@@ -2,10 +2,14 @@
 //var lf = ":58157";
 //var lf = "http://" + window.location.hostname + ":81";
 //var lf = "http://" + window.location.hostname + ":58157";
-var lf = "http://" + window.location.hostname + ":" + portToPost;
+//var lf = "http://" + window.location.hostname + ":" + portToPost + "/Sound/";
+//var lf = "http://" + window.location.hostname + "/Sound/";
+var lf = "Sound/Api/";
+
+console.debug(window);
 
 function onClickDown() {
-    postData("/Home/VolumeStepDown", {}, function (response) {
+    postData("VolumeStepDown", {}, function (response) {
         setMuteBtn(response);
     });
 }
@@ -13,13 +17,13 @@ function onClickDown() {
 function onClickMute() {
     console.debug(window.location.hostname);
 
-    postData("/Home/ToggleMute", {}, function (response) {
+    postData("ToggleMute", {}, function (response) {
         setMuteBtn(response);
     });
 }
 
 function onClickUp() {
-    postData("/Home/VolumeStepUp", {}, function (response) {
+    postData("VolumeStepUp", {}, function (response) {
         setMuteBtn(response);
     });
 }
@@ -48,6 +52,8 @@ function postData(path, data, cb) {
         cache: false,
 
         success: function (response) {
+            console.debug(window.location);
+            console.debug(this);
             if (cb) {
                 cb(response);
             }
@@ -56,10 +62,10 @@ function postData(path, data, cb) {
             console.debug(error);
             console.debug(errorThrown);
             console.debug(this);
-            $('#textContent').html();
-            $('#textContent').html(JSON.stringify(error));
-            $('#errIframe').contents().find('body').html(error.responseText)
-            $('.modal').modal('show');
+            //$('#textContent').html();
+            //$('#textContent').html(JSON.stringify(error));
+            //$('#errIframe').contents().find('body').html(error.responseText)
+            //$('.modal').modal('show');
         }
     });
 }
